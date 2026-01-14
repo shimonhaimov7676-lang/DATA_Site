@@ -13,7 +13,7 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #1a1a1a; /* רקע כהה נראה מקצועי יותר */
+            background-color: #3a1a1a;
             color: white;
         }
         .status-icon {
@@ -50,16 +50,11 @@ const scannerSound = new Audio('beep.mp3');
             // הפעלה מיידית
             scannerSound.play().catch(err => console.log("Error:", err));
 
-            // רטט קצר שמתאים לצליל (100 מילישניות)
             if (navigator.vibrate) {
                 navigator.vibrate(100);
             }
-
-            // (אופציונלי) כאן אפשר להוסיף מעבר לדף אחר אחרי חצי שנייה
-            // setTimeout(() => { window.location.href = "YOUR_LINK_HERE"; }, 500);
+            // setTimeout(() => { window.location.href = "LINK_HERE"; }, 500);
         }
-
-        // טעינה מוקדמת של הסאונד ברגע שהדף נפתח
         window.addEventListener('load', () => {
             scannerSound.load();
         });
@@ -67,3 +62,4 @@ const scannerSound = new Audio('beep.mp3');
 
 </body>
 </html>
+
