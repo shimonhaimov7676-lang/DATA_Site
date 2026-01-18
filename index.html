@@ -2,64 +2,68 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>סורק QR</title>
+    <title>דאשבורד ניתוח נתונים - פרויקט חקר</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #3a1a1a;
-            color: white;
-        }
-        .status-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 25px 60px;
-            font-size: 22px;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-        }
-        button:active {
-            transform: scale(0.98);
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 20px; text-align: center; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        canvas { max-width: 100%; }
+        h1 { color: #2c3e50; }
+        .stats { display: flex; justify-content: space-around; margin-bottom: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="status-icon">✔️</div>
-    <p>הקוד נסרק בהצלחה!</p>
+<div class="container">
+    <h1>ניתוח נתוני מזג אוויר ושינויי אקלים</h1>
+    <p>הצגתי נתונים מתוך 200 מדידות רנדומליות בערים שונות מהאתר weather.com</p>
 
-    <button onclick="playBeep()">המשך</button>
+    <div class="stats">
+        <div>סה"כ מדידות: 200</div>
+        <div>ערים במחקר: 4</div>
+        <div>ממוצע טמפרטורה: 22°C</div>
+    </div>
 
-    <script>
-        // שימוש בצליל ביפ קצר וחד (Scanner Beep)
-const scannerSound = new Audio('beep.mp3');
-        function playBeep() {
-            // הפעלה מיידית
-            scannerSound.play().catch(err => console.log("Error:", err));
+    <div class="charts-grid">
+        <div>
+            <h3>התפלגות עונות השנה</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+        
+        <div>
+            <h3>ממוצע גשמים (מ"מ) לפי עיר</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+</div>
 
-            if (navigator.vibrate) {
-                navigator.vibrate(100);
-            }
-            // setTimeout(() => { window.location.href = "LINK_HERE"; }, 500);
+<script>
+    // גרף עוגה
+    new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: {
+            labels: ['חורף', 'אביב', 'קיץ', 'סתיו'],
+            datasets: [{
+                data: [50, 50, 50, 50],
+                backgroundColor: ['#3498db', '#2ecc71', '#e67e22', '#9b59b6']
+            }]
         }
-        window.addEventListener('load', () => {
-            scannerSound.load();
-        });
-    </script>
+    });
+
+    // גרף עמודות
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['תל אביב', 'אילת', 'שדרות', 'ירושלים'],
+            datasets: [{
+                label: 'מ"מ גשם',
+                data: [45, 80, 65, 10],
+                backgroundColor: '#34495e'
+            }]
+        }
+    });
+</script>
 
 </body>
 </html>
-
